@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Calculator — Find the Best Time to Sleep & Wake Up</title>
+<meta name="description" content="Free sleep cycle calculator. Find out what time to go to bed or wake up feeling refreshed, based on 90-minute sleep cycles.">
+<meta name="keywords" content="sleep calculator, bedtime calculator, sleep cycle calculator, when should I go to sleep, wake up calculator">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yourdomain.com/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Sleep Calculator — Wake Up Refreshed">
+<meta property="og:description" content="Find the best time to sleep or wake up using science-backed 90-minute sleep cycles.">
+<meta property="og:type" content="website">
+
+<!-- Google AdSense (replace ca-pub-XXXX with your publisher ID) -->
+<!--
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+
+<!-- Schema.org structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Sleep Calculator",
+  "description": "Calculate the best time to go to bed or wake up based on 90-minute sleep cycles.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="logo">
+      <span class="logo-icon">🌙</span>
+      <span>SleepCycle</span>
+    </a>
+  </div>
+</header>
+
+<!-- AdSense slot: top banner -->
+<div class="ad-slot ad-top">
+  <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXX" data-ad-slot="XXXX" data-ad-format="auto"></ins> -->
+  <span class="ad-placeholder">Ad slot — top banner</span>
+</div>
+
+<main>
+  <section class="hero container">
+    <h1>When should you go to bed?</h1>
+    <p class="lead">Most adults need 5–6 full sleep cycles (90 minutes each). Waking up between cycles helps you feel refreshed instead of groggy.</p>
+
+    <div class="calculator">
+      <div class="mode-toggle" role="tablist">
+        <button class="mode-btn active" data-mode="wakeup" role="tab" aria-selected="true">I want to wake up at…</button>
+        <button class="mode-btn" data-mode="sleepnow" role="tab" aria-selected="false">I'm going to sleep now</button>
+      </div>
+
+      <div class="input-block" id="wakeup-block">
+        <label for="wake-time">Wake-up time</label>
+        <input type="time" id="wake-time" value="07:00">
+        <button class="calc-btn" id="calc-wakeup">Calculate bedtime</button>
+      </div>
+
+      <div class="input-block hidden" id="sleepnow-block">
+        <p class="now-text">If you fall asleep right now, you should wake up at one of these times:</p>
+        <button class="calc-btn" id="calc-sleepnow">Calculate wake-up time</button>
+      </div>
+
+      <div class="results hidden" id="results">
+        <h2 id="results-title"></h2>
+        <p class="results-sub" id="results-sub"></p>
+        <div class="times-grid" id="times-grid"></div>
+        <p class="fall-asleep-note">Assumes ~15 minutes to fall asleep.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AdSense slot: inline -->
+  <div class="ad-slot ad-inline container">
+    <span class="ad-placeholder">Ad slot — inline rectangle</span>
+  </div>
+
+  <section class="content container">
+    <h2>How sleep cycles work</h2>
+    <p>A full sleep cycle lasts about <strong>90 minutes</strong> and moves through four stages: light sleep, deeper sleep, deep (slow-wave) sleep, and REM sleep. Each stage plays a role in physical recovery, memory consolidation, and emotional regulation.</p>
+    <p>You feel <em>worst</em> when an alarm pulls you out of deep sleep, and <em>best</em> when you wake up at the end of a cycle — during light sleep. That's why two extra hours of sleep can sometimes leave you feeling more tired than less sleep timed correctly.</p>
+
+    <h2>How many cycles do you need?</h2>
+    <ul class="cycle-list">
+      <li><strong>6 cycles (9 hours)</strong> — ideal for teenagers, athletes, and recovery from illness or jet lag.</li>
+      <li><strong>5 cycles (7.5 hours)</strong> — the sweet spot for most adults.</li>
+      <li><strong>4 cycles (6 hours)</strong> — workable short-term, not sustainable.</li>
+      <li><strong>3 cycles (4.5 hours)</strong> — survival mode. Use only when unavoidable.</li>
+    </ul>
+
+    <h2>Tips for falling asleep faster</h2>
+    <ul class="tips-list">
+      <li><strong>Cool the room.</strong> 18–20°C (65–68°F) helps your core temperature drop, which signals sleep.</li>
+      <li><strong>Kill the light.</strong> Even small amounts of light suppress melatonin. Blackout curtains help.</li>
+      <li><strong>Cut caffeine after 2 PM.</strong> Its half-life is 5–7 hours — that afternoon coffee is still in your system at midnight.</li>
+      <li><strong>Stop screens 30 min before bed</strong>, or use night mode. Blue light delays melatonin release.</li>
+      <li><strong>Keep a consistent schedule.</strong> Your circadian rhythm adapts to regularity — even on weekends.</li>
+    </ul>
+
+    <h2>Why waking up mid-cycle feels awful</h2>
+    <p>If your alarm goes off during deep sleep, your brain is flooded with sleep-promoting chemicals it hasn't finished processing. This is called <strong>sleep inertia</strong> — that heavy, foggy feeling that can last 15–60 minutes. Timing your wake-up to the end of a cycle skips most of it.</p>
+
+    <h2>FAQ</h2>
+    <div class="faq">
+      <h3>Is the 90-minute cycle exact?</h3>
+      <p>It's an average. Real cycles vary from 70 to 120 minutes and change throughout the night — early cycles have more deep sleep, later ones have more REM. The calculator uses 90 minutes as a reliable starting point.</p>
+
+      <h3>What if I can't fall asleep in 15 minutes?</h3>
+      <p>If you regularly take longer than 30 minutes to fall asleep, look into sleep hygiene or talk to a doctor. The 15-minute buffer is an average for healthy adults.</p>
+
+      <h3>Should I sleep 5 or 6 cycles?</h3>
+      <p>Most adults do fine with 5 (7.5 hours). If you're an athlete, sick, recovering from sleep debt, or under 25, aim for 6 (9 hours).</p>
+
+      <h3>Is napping covered by this?</h3>
+      <p>For naps, aim for either 20 minutes (before deep sleep starts) or 90 minutes (one full cycle). Anything in between usually leaves you groggy.</p>
+    </div>
+  </section>
+
+  <!-- AdSense slot: bottom -->
+  <div class="ad-slot ad-bottom container">
+    <span class="ad-placeholder">Ad slot — bottom banner</span>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>SleepCycle is an informational tool, not medical advice. If you have persistent sleep problems, consult a doctor.</p>
+    <p class="copyright">© <span id="year"></span> SleepCycle</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
