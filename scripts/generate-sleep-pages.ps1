@@ -1,5 +1,8 @@
 # Generates programmatic SEO pages for common wake-up times.
 # Re-run anytime to refresh. Output: public/sleep/wake-at-<slug>/index.html
+# All non-ASCII characters in HTML output use HTML entities to be immune to
+# PowerShell encoding quirks (Windows PowerShell 5.1 reads .ps1 as Windows-1252
+# unless a UTF-8 BOM is present).
 
 $wakeTimes = @(
   @{ hour = 5;  minute = 0;  label = "5:00 AM";  slug = "5am" },
@@ -47,7 +50,7 @@ foreach ($wt in $wakeTimes) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wake up at $label — What time to go to bed | CycleBed</title>
+<title>Wake up at $label &mdash; What time to go to bed | CycleBed</title>
 <meta name="description" content="If you need to wake up at $label, here are the best bedtimes based on 90-minute sleep cycles. Wake up refreshed instead of groggy.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://cyclebed.com/sleep/wake-at-$slug/">
@@ -71,40 +74,40 @@ foreach ($wt in $wakeTimes) {
 <main>
   <article class="container article">
     <h1>What time to sleep to wake up at $label</h1>
-    <p class="lead">If your alarm is set for <strong>$label</strong>, here are the bedtimes that align with full 90-minute sleep cycles — so you wake up between cycles instead of in the middle of deep sleep.</p>
+    <p class="lead">If your alarm is set for <strong>$label</strong>, here are the bedtimes that align with full 90-minute sleep cycles &mdash; so you wake up between cycles instead of in the middle of deep sleep.</p>
 
     <div class="bedtime-table">
       <div class="bedtime-row recommended">
         <div class="bedtime-time">$t6</div>
-        <div class="bedtime-meta"><strong>6 cycles</strong> · 9 hours · <span class="quality good">Ideal</span></div>
+        <div class="bedtime-meta"><strong>6 cycles</strong> &middot; 9 hours &middot; <span class="quality good">Ideal</span></div>
       </div>
       <div class="bedtime-row recommended">
         <div class="bedtime-time">$t5</div>
-        <div class="bedtime-meta"><strong>5 cycles</strong> · 7.5 hours · <span class="quality good">Recommended</span></div>
+        <div class="bedtime-meta"><strong>5 cycles</strong> &middot; 7.5 hours &middot; <span class="quality good">Recommended</span></div>
       </div>
       <div class="bedtime-row">
         <div class="bedtime-time">$t4</div>
-        <div class="bedtime-meta"><strong>4 cycles</strong> · 6 hours · <span class="quality ok">Workable</span></div>
+        <div class="bedtime-meta"><strong>4 cycles</strong> &middot; 6 hours &middot; <span class="quality ok">Workable</span></div>
       </div>
       <div class="bedtime-row">
         <div class="bedtime-time">$t3</div>
-        <div class="bedtime-meta"><strong>3 cycles</strong> · 4.5 hours · <span class="quality short">Short</span></div>
+        <div class="bedtime-meta"><strong>3 cycles</strong> &middot; 4.5 hours &middot; <span class="quality short">Short</span></div>
       </div>
     </div>
     <p class="fall-asleep-note">Times assume ~15 minutes to fall asleep.</p>
 
     <h2>Why these specific times?</h2>
-    <p>Your brain doesn't sleep evenly. It cycles through stages of light sleep, deep sleep, and REM sleep. One full cycle averages <strong>90 minutes</strong>. Waking up at the end of a cycle, during light sleep, feels effortless. Waking up mid-cycle — especially during deep sleep — leaves you groggy for an hour or more, a feeling sleep researchers call <strong>sleep inertia</strong>.</p>
-    <p>That's why a 7-hour night sometimes feels worse than 6 hours: 7 hours can land you in the middle of a cycle, while 6 or 7.5 hours wake you up cleanly between cycles. If you need to be up at $label, the bedtimes above let your last cycle end right around your alarm.</p>
+    <p>Your brain doesn&rsquo;t sleep evenly. It cycles through stages of light sleep, deep sleep, and REM sleep. One full cycle averages <strong>90 minutes</strong>. Waking up at the end of a cycle, during light sleep, feels effortless. Waking up mid-cycle &mdash; especially during deep sleep &mdash; leaves you groggy for an hour or more, a feeling sleep researchers call <strong>sleep inertia</strong>.</p>
+    <p>That&rsquo;s why a 7-hour night sometimes feels worse than 6 hours: 7 hours can land you in the middle of a cycle, while 6 or 7.5 hours wake you up cleanly between cycles. If you need to be up at $label, the bedtimes above let your last cycle end right around your alarm.</p>
 
     <h2>How to pick the right bedtime</h2>
-    <p>For most adults, the sweet spot is <strong>5 cycles (7.5 hours)</strong>. If you're recovering from sleep debt, sick, doing intense physical training, or under 25, aim for <strong>6 cycles (9 hours)</strong>. Try to avoid 4 cycles or fewer unless you genuinely have no other option.</p>
+    <p>For most adults, the sweet spot is <strong>5 cycles (7.5 hours)</strong>. If you&rsquo;re recovering from sleep debt, sick, doing intense physical training, or under 25, aim for <strong>6 cycles (9 hours)</strong>. Try to avoid 4 cycles or fewer unless you genuinely have no other option.</p>
 
     <h2>Tips to actually fall asleep at this time</h2>
     <ul>
-      <li><strong>Cool the room</strong> to 18–20°C (65–68°F). Your core temperature has to drop for sleep to start.</li>
-      <li><strong>Kill the light</strong>. Even small amounts of light suppress melatonin — your body's sleep signal.</li>
-      <li><strong>Stop caffeine after 2 PM</strong>. Its half-life is 5–7 hours, so afternoon coffee is still active at midnight.</li>
+      <li><strong>Cool the room</strong> to 18&ndash;20&deg;C (65&ndash;68&deg;F). Your core temperature has to drop for sleep to start.</li>
+      <li><strong>Kill the light</strong>. Even small amounts of light suppress melatonin &mdash; your body&rsquo;s sleep signal.</li>
+      <li><strong>Stop caffeine after 2 PM</strong>. Its half-life is 5&ndash;7 hours, so afternoon coffee is still active at midnight.</li>
       <li><strong>Cut screens 30 minutes before bed</strong>, or use night-mode filters. Blue light delays melatonin release.</li>
       <li><strong>Keep a consistent schedule</strong>, including weekends. Your circadian rhythm rewards regularity.</li>
     </ul>
@@ -116,8 +119,8 @@ $siblingsHtml
     </ul>
 
     <h2>About sleep cycles</h2>
-    <p>The 90-minute cycle is an average, not a law. Real cycles vary from 70 to 120 minutes and shift throughout the night — early cycles contain more deep sleep, later cycles more REM. The calculator gives you a strong starting point, but you may need to adjust by 15–20 minutes after a few weeks of tracking how you feel.</p>
-    <p>If you struggle to fall asleep by the time recommended here, or wake up exhausted regardless of timing, this calculator can't replace a conversation with a doctor. Persistent insomnia, daytime exhaustion, and snoring all deserve professional attention.</p>
+    <p>The 90-minute cycle is an average, not a law. Real cycles vary from 70 to 120 minutes and shift throughout the night &mdash; early cycles contain more deep sleep, later cycles more REM. The calculator gives you a strong starting point, but you may need to adjust by 15&ndash;20 minutes after a few weeks of tracking how you feel.</p>
+    <p>If you struggle to fall asleep by the time recommended here, or wake up exhausted regardless of timing, this calculator can&rsquo;t replace a conversation with a doctor. Persistent insomnia, daytime exhaustion, and snoring all deserve professional attention.</p>
   </article>
 </main>
 
