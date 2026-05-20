@@ -62,7 +62,7 @@ foreach ($wt in $wakeTimes) {
 <header class="site-header">
   <div class="container">
     <a href="/" class="logo">
-      <span class="logo-icon">🌙</span>
+      <svg class="logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="#7c9eff" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       <span>CycleBed</span>
     </a>
   </div>
@@ -142,7 +142,8 @@ $siblingsHtml
 
   $dir = Join-Path $outRoot "wake-at-$slug"
   New-Item -ItemType Directory -Path $dir -Force | Out-Null
-  $html | Out-File -FilePath (Join-Path $dir "index.html") -Encoding utf8 -Force
+  $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+  [System.IO.File]::WriteAllText((Join-Path $dir "index.html"), $html, $utf8NoBom)
   Write-Output "Generated: wake-at-$slug ($label) -> bedtimes $t6 / $t5 / $t4 / $t3"
 }
 
