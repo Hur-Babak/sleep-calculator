@@ -375,6 +375,72 @@ h1 {
   margin-bottom: 24px;
 }
 
+/* Bedtime table on /sleep/wake-at-*/ pages */
+.bedtime-table {
+  display: grid;
+  gap: 10px;
+  margin: 24px 0 8px;
+}
+
+.bedtime-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  gap: 12px;
+}
+
+.bedtime-row.recommended {
+  border-color: var(--good);
+  background: linear-gradient(135deg, rgba(94, 227, 161, 0.06), var(--bg-card));
+}
+
+.bedtime-time {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.bedtime-meta {
+  color: var(--text-dim);
+  font-size: 14px;
+  text-align: right;
+  line-height: 1.4;
+}
+
+.bedtime-meta strong { color: var(--text); }
+
+.quality {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 4px;
+}
+.quality.good { color: var(--good); background: rgba(94, 227, 161, 0.12); }
+.quality.ok { color: var(--warn); background: rgba(255, 184, 107, 0.12); }
+.quality.short { color: var(--bad); background: rgba(255, 122, 144, 0.12); }
+
+@media (max-width: 480px) {
+  .bedtime-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .bedtime-meta { text-align: left; }
+}
+
+.article .lead {
+  color: var(--text-dim);
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 1.55;
+}
+
 .contact-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
