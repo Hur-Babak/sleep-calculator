@@ -46,16 +46,10 @@
   <div class="container">
     <a href="/" class="logo">
       <span class="logo-icon">🌙</span>
-      <span>SleepCycle</span>
+      <span>CycleBed</span>
     </a>
   </div>
 </header>
-
-<!-- AdSense slot: top banner -->
-<div class="ad-slot ad-top">
-  <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXX" data-ad-slot="XXXX" data-ad-format="auto"></ins> -->
-  <span class="ad-placeholder">Ad slot — top banner</span>
-</div>
 
 <main>
   <section class="hero container">
@@ -87,11 +81,6 @@
       </div>
     </div>
   </section>
-
-  <!-- AdSense slot: inline -->
-  <div class="ad-slot ad-inline container">
-    <span class="ad-placeholder">Ad slot — inline rectangle</span>
-  </div>
 
   <section class="content container">
     <h2>How sleep cycles work</h2>
@@ -134,19 +123,37 @@
     </div>
   </section>
 
-  <!-- AdSense slot: bottom -->
-  <div class="ad-slot ad-bottom container">
-    <span class="ad-placeholder">Ad slot — bottom banner</span>
-  </div>
 </main>
 
 <footer class="site-footer">
   <div class="container">
-    <p>SleepCycle is an informational tool, not medical advice. If you have persistent sleep problems, consult a doctor.</p>
-    <p class="copyright">© <span id="year"></span> SleepCycle</p>
+    <nav class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <p class="footer-note">CycleBed is an informational tool, not medical advice. If you have persistent sleep problems, consult a doctor.</p>
+    <p class="copyright">© <span id="year"></span> CycleBed</p>
   </div>
 </footer>
 
+<div class="cookie-banner hidden" id="cookie-banner">
+  <p>We use cookies for ads and analytics. See our <a href="/privacy/">Privacy Policy</a>.</p>
+  <button id="cookie-accept">OK</button>
+</div>
+
 <script src="script.js"></script>
+<script>
+(function() {
+  var b = document.getElementById('cookie-banner');
+  if (!localStorage.getItem('cookies_ok')) b.classList.remove('hidden');
+  document.getElementById('cookie-accept').addEventListener('click', function() {
+    localStorage.setItem('cookies_ok', '1');
+    b.classList.add('hidden');
+  });
+})();
+</script>
 </body>
 </html>
