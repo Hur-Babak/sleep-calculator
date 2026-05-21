@@ -50,6 +50,7 @@ foreach ($wt in $wakeTimes) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="p:domain_verify" content="1c54f62131bd5728453cb7db845ee337"/>
 <title>Wake up at $label &mdash; What time to go to bed | CycleBed</title>
 <meta name="description" content="If you need to wake up at $label, here are the best bedtimes based on 90-minute sleep cycles. Wake up refreshed instead of groggy.">
 <meta name="robots" content="index, follow">
