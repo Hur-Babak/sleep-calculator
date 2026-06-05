@@ -813,3 +813,190 @@ h1 {
 }
 [data-theme="light"] .tool-links a { color: #3a4566 !important; }
 [data-theme="light"] .tool-links a:hover { color: var(--text) !important; }
+
+/* ============================================================
+   Visual polish & animations
+   ============================================================ */
+
+/* ---- Calm animated night-sky background ---- */
+body { position: relative; }
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: -12%;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Slowly drifting aurora glows */
+body::before {
+  background:
+    radial-gradient(36% 40% at 16% 18%, rgba(124, 158, 255, 0.20), transparent 70%),
+    radial-gradient(34% 38% at 84% 16%, rgba(166, 124, 255, 0.17), transparent 70%),
+    radial-gradient(42% 42% at 78% 84%, rgba(94, 227, 161, 0.12), transparent 70%),
+    radial-gradient(36% 38% at 22% 86%, rgba(124, 158, 255, 0.13), transparent 70%);
+  filter: blur(22px);
+  animation: auroraDrift 30s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Twinkling starfield */
+body::after {
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(1.4px 1.4px at 12% 18%, rgba(255,255,255,0.85), transparent),
+    radial-gradient(1.2px 1.2px at 23% 52%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1.6px 1.6px at 34% 28%, rgba(255,255,255,0.75), transparent),
+    radial-gradient(1px 1px at 45% 66%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1.5px 1.5px at 57% 14%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1.1px 1.1px at 66% 44%, rgba(255,255,255,0.55), transparent),
+    radial-gradient(1.6px 1.6px at 73% 74%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 81% 30%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1.4px 1.4px at 88% 58%, rgba(255,255,255,0.75), transparent),
+    radial-gradient(1.2px 1.2px at 8% 76%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 39% 88%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1.5px 1.5px at 62% 92%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1.1px 1.1px at 92% 84%, rgba(255,255,255,0.55), transparent),
+    radial-gradient(1.3px 1.3px at 50% 40%, rgba(255,255,255,0.65), transparent);
+  opacity: 0.55;
+  animation: twinkle 7s ease-in-out infinite;
+}
+
+@keyframes auroraDrift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(2.5%, 2%, 0) scale(1.07); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.32; }
+  50%      { opacity: 0.6; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 1px var(--good), 0 0 0 rgba(94, 227, 161, 0); }
+  50%      { box-shadow: 0 0 0 1px var(--good), 0 0 22px rgba(94, 227, 161, 0.22); }
+}
+
+/* Light theme: softer daytime sky, no stars */
+[data-theme="light"] body::before {
+  background:
+    radial-gradient(38% 42% at 16% 16%, rgba(63, 95, 208, 0.12), transparent 70%),
+    radial-gradient(34% 38% at 84% 18%, rgba(124, 92, 208, 0.10), transparent 70%),
+    radial-gradient(42% 42% at 80% 84%, rgba(31, 157, 99, 0.08), transparent 70%),
+    radial-gradient(36% 38% at 20% 86%, rgba(63, 95, 208, 0.09), transparent 70%);
+  filter: blur(26px);
+}
+[data-theme="light"] body::after { display: none; }
+
+/* ---- Micro-interactions ---- */
+a { transition: color 0.15s ease; }
+
+.logo-icon { transition: transform 0.3s ease; }
+.logo:hover .logo-icon { transform: rotate(-12deg) scale(1.08); }
+
+.theme-toggle svg { transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.theme-toggle:hover svg { transform: rotate(35deg) scale(1.05); }
+.theme-toggle:active { transform: scale(0.94); }
+
+/* Buttons: gradient + lift + glow */
+.calc-btn {
+  background: linear-gradient(135deg, var(--accent), #6f8cf0);
+  box-shadow: 0 6px 18px rgba(124, 158, 255, 0.22);
+  transition: transform 0.16s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+.calc-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(124, 158, 255, 0.38);
+  filter: brightness(1.04);
+}
+.calc-btn:active { transform: translateY(0) scale(0.99); }
+
+/* Cards: smooth hover lift */
+.tool-links li {
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.2s ease;
+}
+.tool-links li:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.bedtime-row {
+  transition: transform 0.16s ease, border-color 0.18s ease, background 0.2s ease;
+}
+.bedtime-row:hover { transform: translateX(3px); border-color: var(--accent); }
+
+.quiz-opt { transition: transform 0.14s ease, border-color 0.15s ease, background 0.15s ease; }
+.quiz-opt:hover { transform: translateY(-1px); }
+
+/* Accessible focus rings */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Custom scrollbar (dark) */
+* { scrollbar-color: var(--border) transparent; scrollbar-width: thin; }
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent); background-clip: content-box; }
+
+/* ---- Motion: entrance + scroll reveal ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .hero,
+  .article > .breadcrumbs,
+  .calculator { animation: fadeUp 0.6s ease both; }
+  .calculator { animation-delay: 0.08s; }
+
+  .logo-icon { animation: floatY 5s ease-in-out infinite; }
+
+  .time-card.recommended { animation: glowPulse 3.6s ease-in-out infinite; }
+
+  /* Scroll reveal: pre-hide only when JS enabled (reveal-ready on <html>) */
+  .reveal-ready .time-card,
+  .reveal-ready .tool-links li,
+  .reveal-ready .bedtime-row,
+  .reveal-ready .quiz-question,
+  .reveal-ready .tool,
+  .reveal-ready .article h2 {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: calc(var(--reveal-i, 0) * 55ms);
+  }
+  .reveal-ready .time-card.in-view,
+  .reveal-ready .tool-links li.in-view,
+  .reveal-ready .bedtime-row.in-view,
+  .reveal-ready .quiz-question.in-view,
+  .reveal-ready .tool.in-view,
+  .reveal-ready .article h2.in-view {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Respect reduced-motion: kill continuous + entrance motion */
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after,
+  .logo-icon,
+  .time-card.recommended { animation: none !important; }
+}

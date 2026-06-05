@@ -13,6 +13,14 @@
     document.documentElement.setAttribute('data-theme', saved);
   }
 
+  // --- Scroll reveal: pre-hide elements only if we can observe them ---
+  // Added synchronously (pre-paint) so content never flashes in then out.
+  // If IntersectionObserver is missing, we skip this and content stays visible.
+  var canReveal = 'IntersectionObserver' in window;
+  if (canReveal) {
+    document.documentElement.classList.add('reveal-ready');
+  }
+
   function currentTheme() {
     return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
   }
@@ -58,9 +66,41 @@
     }
   }
 
+  // --- Scroll reveal: stagger + observe targets, reveal on intersect ---
+  function setupReveals() {
+    if (!canReveal) return;
+    var targets = document.querySelectorAll(
+      '.time-card, .tool-links li, .bedtime-row, .quiz-question, .tool, .article h2'
+    );
+    if (!targets.length) return;
+
+    function revealAll() {
+      for (var j = 0; j < targets.length; j++) targets[j].classList.add('in-view');
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+
+    for (var i = 0; i < targets.length; i++) {
+      targets[i].style.setProperty('--reveal-i', i % 8);
+      io.observe(targets[i]);
+    }
+
+    // Failsafe: if anything is still hidden after a moment (e.g. observer
+    // never fires for off-screen-but-tall content), force it visible.
+    setTimeout(revealAll, 1800);
+  }
+
   function init() {
     injectToggle();
     registerSW();
+    setupReveals();
   }
 
   if (document.readyState === 'loading') {
