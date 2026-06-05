@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CycleBed Pinterest Pins — Batch 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #14172b;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    padding: 40px 20px;
+    color: #fff;
+  }
+  .instructions {
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    padding: 24px 28px;
+    background: #1a2140;
+    border-radius: 14px;
+    border: 1px solid #2a3358;
+    line-height: 1.6;
+  }
+  .instructions h1 { font-size: 22px; margin-bottom: 12px; }
+  .instructions p { color: #b8c3df; margin-bottom: 8px; font-size: 15px; }
+  .instructions code {
+    background: #0b1020;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #7c9eff;
+    font-family: ui-monospace, monospace;
+    font-size: 13px;
+  }
+  .pin-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+
+  /* === BASE PIN === */
+  .pin {
+    width: 1000px;
+    height: 1500px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 32px;
+    padding: 90px 70px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* Theme: night (default) */
+  .pin.night {
+    background: linear-gradient(160deg, #14183a 0%, #0b1020 60%, #1a0e2c 100%);
+  }
+  .pin.night::before {
+    content: '';
+    position: absolute;
+    top: 12%; right: 14%;
+    width: 6px; height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.5;
+    box-shadow:
+      -60px 30px 0 -1px rgba(255,255,255,0.4),
+      40px 80px 0 -2px rgba(255,255,255,0.3),
+      -120px 110px 0 -2px rgba(255,255,255,0.35),
+      90px 160px 0 -1px rgba(255,255,255,0.45);
+  }
+  .pin.night::after {
+    content: '';
+    position: absolute;
+    bottom: 15%; left: 12%;
+    width: 4px; height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.3;
+    box-shadow:
+      80px -60px 0 0 rgba(255,255,255,0.3),
+      150px 40px 0 -1px rgba(255,255,255,0.4),
+      -40px -100px 0 -1px rgba(255,255,255,0.4);
+  }
+
+  /* Theme: dawn (lighter, warmer) */
+  .pin.dawn {
+    background: linear-gradient(180deg, #2d1b4e 0%, #4a2c5c 30%, #ff7e87 80%, #ffb47a 100%);
+  }
+  .pin.dawn .pin-eyebrow { color: #ffb47a; }
+  .pin.dawn .pin-title .accent {
+    background: linear-gradient(135deg, #ffd89b, #ff7e87);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .pin.dawn .pin-url { color: #ffb47a; }
+
+  /* Theme: deep (rich purple) */
+  .pin.deep {
+    background: linear-gradient(160deg, #1a0d3a 0%, #2c1659 50%, #3a1e7a 100%);
+  }
+  .pin.deep .pin-eyebrow { color: #c4a8ff; }
+  .pin.deep .pin-url { color: #c4a8ff; }
+
+  .pin-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 60px;
+    z-index: 2;
+  }
+  .pin-header svg { flex-shrink: 0; }
+  .pin-brand {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .pin-eyebrow {
+    font-size: 18px;
+    font-weight: 700;
+    color: #7c9eff;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 24px;
+    z-index: 2;
+  }
+
+  .pin-title {
+    font-size: 76px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 36px;
+    z-index: 2;
+  }
+  .pin-title .accent {
+    background: linear-gradient(135deg, #7c9eff, #b8a0ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .pin-sub {
+    font-size: 26px;
+    font-weight: 500;
+    color: #d4dbeb;
+    line-height: 1.4;
+    margin-bottom: 50px;
+    z-index: 2;
+  }
+
+  .pin-times {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: auto;
+    z-index: 2;
+  }
+  .pin-time-row {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1.5px solid rgba(124, 158, 255, 0.25);
+    border-radius: 20px;
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pin-time-row.recommended {
+    background: linear-gradient(135deg, rgba(94, 227, 161, 0.15), rgba(124, 158, 255, 0.1));
+    border-color: #5ee3a1;
+  }
+  .pin-time {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .pin-time-meta {
+    font-size: 22px;
+    font-weight: 600;
+    color: #d4dbeb;
+    text-align: right;
+    line-height: 1.3;
+  }
+  .pin-time-meta .badge {
+    display: inline-block;
+    margin-top: 6px;
+    background: #5ee3a1;
+    color: #0b1020;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .pin-footer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+  }
+  .pin-tagline {
+    font-size: 22px;
+    font-weight: 600;
+    color: #d4dbeb;
+  }
+  .pin-url {
+    font-size: 24px;
+    font-weight: 800;
+    color: #7c9eff;
+    letter-spacing: -0.01em;
+  }
+
+  /* === VARIANT: VS-COMPARISON === */
+  .pin .vs-compare {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 30px 0 auto;
+    z-index: 2;
+  }
+  .vs-side {
+    background: rgba(255,255,255,0.05);
+    border-radius: 24px;
+    padding: 40px 36px;
+    border: 1.5px solid rgba(255,255,255,0.1);
+  }
+  .vs-side.good {
+    background: linear-gradient(135deg, rgba(94, 227, 161, 0.18), rgba(94, 227, 161, 0.06));
+    border-color: #5ee3a1;
+  }
+  .vs-side.bad {
+    background: linear-gradient(135deg, rgba(255, 122, 144, 0.15), rgba(255, 122, 144, 0.05));
+    border-color: rgba(255, 122, 144, 0.5);
+  }
+  .vs-big {
+    font-size: 120px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 12px;
+    letter-spacing: -0.04em;
+  }
+  .vs-side.good .vs-big { color: #5ee3a1; }
+  .vs-side.bad .vs-big { color: #ff7a90; }
+  .vs-label {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .vs-desc {
+    font-size: 20px;
+    font-weight: 500;
+    color: #d4dbeb;
+  }
+
+  /* === VARIANT: BIG-FACT === */
+  .pin .big-fact {
+    text-align: center;
+    margin: 60px 0 auto;
+    z-index: 2;
+  }
+  .big-fact-number {
+    font-size: 320px;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+    background: linear-gradient(135deg, #ffd89b, #ff7e87);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .big-fact-unit {
+    font-size: 48px;
+    font-weight: 800;
+    color: #fff;
+    margin-top: -20px;
+    margin-bottom: 30px;
+  }
+  .big-fact-line {
+    font-size: 32px;
+    font-weight: 600;
+    color: #d4dbeb;
+    line-height: 1.4;
+  }
+  .big-fact-line strong { color: #fff; font-weight: 800; }
+
+  /* === VARIANT: LIST === */
+  .pin .tip-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 20px 0 auto;
+    z-index: 2;
+  }
+  .tip-item {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 24px 28px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 18px;
+    border-left: 4px solid #c4a8ff;
+  }
+  .tip-num {
+    font-size: 52px;
+    font-weight: 900;
+    color: #c4a8ff;
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 60px;
+  }
+  .tip-text {
+    font-size: 26px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.35;
+  }
+  .tip-text small {
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    color: #b8a0d6;
+    margin-top: 4px;
+  }
+
+  .pin-label {
+    text-align: center;
+    color: #7c9eff;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-family: ui-monospace, monospace;
+  }
+</style>
+</head>
+<body>
+
+<div class="instructions">
+  <h1>Batch 2 &mdash; 5 more pins</h1>
+  <p><strong>1.</strong> Right-click on any pin below &rarr; <code>Inspect</code></p>
+  <p><strong>2.</strong> Right-click on <code>&lt;div class="pin ..."&gt;</code> in DevTools &rarr; <code>Capture node screenshot</code></p>
+  <p><strong>3.</strong> PNG (1000&times;1500) downloads automatically &rarr; upload to Pinterest.</p>
+  <p style="margin-top:12px; color:#7c9eff;"><strong>Schedule:</strong> publish 1 pin per day for 5 days. Pinterest rewards consistency.</p>
+</div>
+
+<div class="pin-grid">
+
+  <!-- PIN 6: Wake at 8 AM -->
+  <div class="pin-label">PIN 6 &mdash; link: /sleep/wake-at-8am/</div>
+  <div class="pin night">
+    <div class="pin-header">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="#7c9eff"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <div class="pin-brand">CycleBed</div>
+    </div>
+    <div class="pin-eyebrow">Late riser? Read this</div>
+    <div class="pin-title">Wake up at <span class="accent">8&nbsp;AM</span> the right way.</div>
+    <div class="pin-sub">Even with 8 hours of sleep, timing matters more than duration. End your last cycle right at your alarm.</div>
+    <div class="pin-times">
+      <div class="pin-time-row recommended">
+        <div class="pin-time">10:45 PM</div>
+        <div class="pin-time-meta">9 hours sleep<br><span class="badge">Ideal</span></div>
+      </div>
+      <div class="pin-time-row recommended">
+        <div class="pin-time">12:15 AM</div>
+        <div class="pin-time-meta">7.5 hours<br><span class="badge">Recommended</span></div>
+      </div>
+      <div class="pin-time-row">
+        <div class="pin-time">1:45 AM</div>
+        <div class="pin-time-meta">6 hours sleep</div>
+      </div>
+    </div>
+    <div class="pin-footer">
+      <div class="pin-tagline">Free calculator</div>
+      <div class="pin-url">cyclebed.com</div>
+    </div>
+  </div>
+
+  <!-- PIN 7: Power nap rule -->
+  <div class="pin-label">PIN 7 &mdash; link: cyclebed.com (homepage)</div>
+  <div class="pin deep">
+    <div class="pin-header">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="#c4a8ff"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <div class="pin-brand">CycleBed</div>
+    </div>
+    <div class="pin-eyebrow">The power nap rule</div>
+    <div class="pin-title">Nap for <span class="accent">20 min</span> or <span class="accent">90 min</span>. Nothing else.</div>
+    <div class="vs-compare">
+      <div class="vs-side good">
+        <div class="vs-big">20</div>
+        <div class="vs-label">min &mdash; quick power nap</div>
+        <div class="vs-desc">Stays in light sleep. You wake refreshed and alert in seconds.</div>
+      </div>
+      <div class="vs-side good">
+        <div class="vs-big">90</div>
+        <div class="vs-label">min &mdash; full sleep cycle</div>
+        <div class="vs-desc">A complete cycle including REM. Bigger restoration, no grogginess.</div>
+      </div>
+      <div class="vs-side bad">
+        <div class="vs-big">45</div>
+        <div class="vs-label">min &mdash; the worst nap</div>
+        <div class="vs-desc">Wakes you mid-deep-sleep. You feel worse than before you slept.</div>
+      </div>
+    </div>
+    <div class="pin-footer">
+      <div class="pin-tagline">Free calculator</div>
+      <div class="pin-url">cyclebed.com</div>
+    </div>
+  </div>
+
+  <!-- PIN 8: Caffeine cutoff -->
+  <div class="pin-label">PIN 8 &mdash; link: cyclebed.com (homepage)</div>
+  <div class="pin dawn">
+    <div class="pin-header">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="#ffd89b"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <div class="pin-brand">CycleBed</div>
+    </div>
+    <div class="pin-eyebrow">Sleep hack</div>
+    <div class="pin-title">Stop caffeine at <span class="accent">2&nbsp;PM</span>.</div>
+    <div class="big-fact">
+      <div class="big-fact-number">5h</div>
+      <div class="big-fact-unit">caffeine half-life</div>
+      <div class="big-fact-line">
+        Drink coffee at 3 PM?<br>
+        <strong>Half of it is still in you at 8 PM.</strong><br>
+        A quarter at midnight.<br>
+        <br>
+        That&rsquo;s why you toss and turn.
+      </div>
+    </div>
+    <div class="pin-footer">
+      <div class="pin-tagline">Sleep tips</div>
+      <div class="pin-url">cyclebed.com</div>
+    </div>
+  </div>
+
+  <!-- PIN 9: Wake at 6:30 AM -->
+  <div class="pin-label">PIN 9 &mdash; link: /sleep/wake-at-6-30am/</div>
+  <div class="pin night">
+    <div class="pin-header">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="#7c9eff"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <div class="pin-brand">CycleBed</div>
+    </div>
+    <div class="pin-eyebrow">Commuter alarm</div>
+    <div class="pin-title">Set for <span class="accent">6:30 AM</span>? Here&rsquo;s your bedtime.</div>
+    <div class="pin-sub">The classic commute alarm. Hit one of these bedtimes and stop waking up groggy on a Tuesday.</div>
+    <div class="pin-times">
+      <div class="pin-time-row recommended">
+        <div class="pin-time">9:15 PM</div>
+        <div class="pin-time-meta">9 hours sleep<br><span class="badge">Ideal</span></div>
+      </div>
+      <div class="pin-time-row recommended">
+        <div class="pin-time">10:45 PM</div>
+        <div class="pin-time-meta">7.5 hours<br><span class="badge">Recommended</span></div>
+      </div>
+      <div class="pin-time-row">
+        <div class="pin-time">12:15 AM</div>
+        <div class="pin-time-meta">6 hours sleep</div>
+      </div>
+    </div>
+    <div class="pin-footer">
+      <div class="pin-tagline">Free calculator</div>
+      <div class="pin-url">cyclebed.com</div>
+    </div>
+  </div>
+
+  <!-- PIN 10: 5 rules for better sleep (list pin) -->
+  <div class="pin-label">PIN 10 &mdash; link: cyclebed.com (homepage)</div>
+  <div class="pin deep">
+    <div class="pin-header">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="#c4a8ff"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <div class="pin-brand">CycleBed</div>
+    </div>
+    <div class="pin-eyebrow">Fall asleep faster</div>
+    <div class="pin-title">5 rules for <span class="accent">better sleep</span> tonight.</div>
+    <div class="tip-list">
+      <div class="tip-item">
+        <div class="tip-num">1</div>
+        <div class="tip-text">Cool the room to 18&ndash;20&deg;C<small>Core temperature has to drop to fall asleep</small></div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">2</div>
+        <div class="tip-text">Kill all light<small>Even small amounts suppress melatonin</small></div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">3</div>
+        <div class="tip-text">No caffeine after 2 PM<small>It stays in your system for 7+ hours</small></div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">4</div>
+        <div class="tip-text">No screens 30 min before bed<small>Blue light delays melatonin release</small></div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">5</div>
+        <div class="tip-text">Same bedtime every day<small>Yes, weekends too. Your body craves rhythm.</small></div>
+      </div>
+    </div>
+    <div class="pin-footer">
+      <div class="pin-tagline">Free sleep calculator</div>
+      <div class="pin-url">cyclebed.com</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

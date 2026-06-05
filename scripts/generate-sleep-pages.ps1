@@ -5,12 +5,42 @@
 # unless a UTF-8 BOM is present).
 
 $wakeTimes = @(
-  @{ hour = 5;  minute = 0;  label = "5:00 AM";  slug = "5am" },
-  @{ hour = 6;  minute = 0;  label = "6:00 AM";  slug = "6am" },
-  @{ hour = 6;  minute = 30; label = "6:30 AM";  slug = "6-30am" },
-  @{ hour = 7;  minute = 0;  label = "7:00 AM";  slug = "7am" },
-  @{ hour = 7;  minute = 30; label = "7:30 AM";  slug = "7-30am" },
-  @{ hour = 8;  minute = 0;  label = "8:00 AM";  slug = "8am" }
+  @{
+    hour = 5;  minute = 0;  label = "5:00 AM";  slug = "5am";
+    who = "A 5:00 AM alarm is the realm of athletes, gym-before-work early risers, early-shift workers, and the famous &ldquo;5 AM club.&rdquo; It&rsquo;s a powerful, productive start &mdash; but only if you protect your bedtime ruthlessly.";
+    extraHead = "Making 5 AM work without wrecking yourself";
+    extraBody = "<p>Waking at 5:00 AM is only sustainable if you go to bed early enough to bank a full night, and that&rsquo;s where most 5 AM hopefuls fail. To get a healthy 5 cycles you need to be asleep around 9:15 PM &mdash; which means starting your wind-down by 8:30 PM, before the evening is really over. If that feels impossible, build up gradually: shift your bedtime 15 minutes earlier every few nights rather than lurching from a midnight habit to a 9 PM one overnight.</p><p>For athletes and gym-goers, the early-night deep sleep you&rsquo;d sacrifice by going to bed late is exactly the stage where your body releases growth hormone and repairs muscle &mdash; so a poorly-timed 5 AM wake-up undercuts the very training you&rsquo;re getting up for. Anchor your wake time, get bright light immediately on rising, and treat the 9 PM bedtime as non-negotiable on training days.</p>"
+  },
+  @{
+    hour = 6;  minute = 0;  label = "6:00 AM";  slug = "6am";
+    who = "6:00 AM is the classic early-shift and commuter wake-up &mdash; trades, healthcare, transport, manufacturing, and anyone with a long drive before a 9-to-5. It&rsquo;s early enough to demand discipline but common enough to build a normal life around.";
+    extraHead = "The early-shift sleep strategy";
+    extraBody = "<p>If you&rsquo;re up at 6:00 AM for shift work or a long commute, your biggest enemy is the temptation to stay up as if you were on a later schedule. To hit 5 full cycles you want to be asleep by about 10:15 PM. That clashes with prime-time TV and family evenings, so the trick is a hard wind-down cutoff rather than relying on willpower in the moment.</p><p>Shift and commuter schedules also tend to collapse on weekends, when people sleep in by hours and then can&rsquo;t fall asleep Sunday night &mdash; the classic &ldquo;social jetlag&rdquo; that makes Monday&rsquo;s 6 AM alarm brutal. Keeping your wake time within an hour of 6:00 AM even on days off keeps your body clock stable, so the early start stops feeling like a fresh shock every week.</p>"
+  },
+  @{
+    hour = 6;  minute = 30; label = "6:30 AM";  slug = "6-30am";
+    who = "6:30 AM is the quintessential commuter alarm &mdash; just enough time to get ready, get out, and beat the worst of the traffic before a standard 8:30 or 9:00 start. It&rsquo;s the most common &ldquo;real life&rdquo; wake-up time of all.";
+    extraHead = "Winning the commuter morning";
+    extraBody = "<p>The 6:30 AM crowd usually has a fixed, immovable start time on the other end, which makes bedtime the only variable you actually control. For 5 cycles, aim to be asleep by about 10:45 PM. The good news is that this lines up reasonably well with a normal evening, so 6:30 AM is one of the more sustainable early starts &mdash; you don&rsquo;t have to abandon your night to make it work.</p><p>The pitfall here is the snooze button. Because 6:30 AM isn&rsquo;t brutally early, it&rsquo;s tempting to set the alarm and then steal three or four nine-minute snoozes. Those fragments of light sleep after your alarm aren&rsquo;t restorative and often leave you groggier than if you&rsquo;d simply gotten up. Timing your bedtime so your last cycle ends right at 6:30 means you wake naturally near the alarm and don&rsquo;t need the snooze at all.</p>"
+  },
+  @{
+    hour = 7;  minute = 0;  label = "7:00 AM";  slug = "7am";
+    who = "7:00 AM is the default wake-up time for office workers, students, and parents on a school-run schedule. It&rsquo;s the most-searched alarm time on the internet for a reason &mdash; it fits a standard 9-to-5 day almost perfectly.";
+    extraHead = "The standard-schedule sweet spot";
+    extraBody = "<p>7:00 AM pairs beautifully with sleep-cycle math. To get 5 complete cycles you simply need to be asleep by about 11:15 PM &mdash; a bedtime that fits a normal adult evening without forcing you to skip your whole night. That&rsquo;s why 7 AM is the easiest mainstream wake-up time to optimise: the ideal bedtime is genuinely realistic.</p><p>For students and parents, consistency is the real lever. Students wrecking their schedule with late-night study and weekend lie-ins lose the predictable rhythm that makes a 7 AM wake feel easy; parents tied to the school run benefit hugely from keeping their own bedtime fixed even when the evening runs long. If you can hold an 11:15 PM lights-out on weekdays, a 7:00 AM alarm stops being something you fight and becomes something your body does on its own.</p>"
+  },
+  @{
+    hour = 7;  minute = 30; label = "7:30 AM";  slug = "7-30am";
+    who = "7:30 AM suits people with a later start &mdash; remote and work-from-home schedules, flexible offices, and later school or university timetables. The extra half hour is a real luxury, if you use it rather than burn it.";
+    extraHead = "Making the most of a later start";
+    extraBody = "<p>A 7:30 AM wake-up gives you breathing room, and the cycle math is forgiving: 5 full cycles means an 11:45 PM bedtime, comfortably within a normal evening. The risk with a later, more flexible start is that the structure quietly disappears &mdash; without a commute forcing the issue, bedtime drifts later and later until you&rsquo;re waking at 7:30 on far too little sleep.</p><p>If you work from home, the danger is doubled because your &ldquo;morning&rdquo; light exposure and movement often shrink to a few steps from bed to desk. Treat the saved commute time as a chance to get outside for daylight soon after waking; that morning light is what keeps your body clock anchored so a flexible schedule doesn&rsquo;t slide into chronic lateness. Use the half-hour you&rsquo;ve gained on a proper wind-down the night before, and 7:30 AM becomes genuinely restful rather than just later.</p>"
+  },
+  @{
+    hour = 8;  minute = 0;  label = "8:00 AM";  slug = "8am";
+    who = "8:00 AM is the wake-up time for freelancers, creative workers, night-owl chronotypes, students with afternoon classes, and anyone whose schedule simply starts later. Slept-in mornings aren&rsquo;t lazy &mdash; for genuine night owls they&rsquo;re biologically correct.";
+    extraHead = "Sleeping later, on purpose and well";
+    extraBody = "<p>An 8:00 AM wake-up only works in your favour if the late start is matched by a late-but-consistent bedtime. For 5 full cycles you want to be asleep by about 12:15 AM. The freedom of a later schedule is real, but it comes with a catch: night owls who drift to 2 or 3 AM and still wake at 8 are simply running a chronic deficit dressed up as a lifestyle.</p><p>If you&rsquo;re a genuine evening chronotype, the goal isn&rsquo;t to force yourself into an early-bird mould &mdash; it&rsquo;s to make your late schedule regular. Pick a fixed bedtime around midnight, hold your 8:00 AM wake time even on weekends, and get bright light as soon as you&rsquo;re up to stop the schedule sliding even later. Done right, an 8 AM wake on a stable late rhythm leaves you just as rested as any early riser &mdash; the cycles are what matter, not the hour on the clock.</p>"
+  }
 )
 
 $CYCLE = 90
@@ -43,6 +73,9 @@ foreach ($wt in $wakeTimes) {
 
   $label = $wt.label
   $slug = $wt.slug
+  $who = $wt.who
+  $extraHead = $wt.extraHead
+  $extraBody = $wt.extraBody
 
   $html = @"
 <!DOCTYPE html>
@@ -76,6 +109,7 @@ foreach ($wt in $wakeTimes) {
   <article class="container article">
     <h1>What time to sleep to wake up at $label</h1>
     <p class="lead">If your alarm is set for <strong>$label</strong>, here are the bedtimes that align with full 90-minute sleep cycles &mdash; so you wake up between cycles instead of in the middle of deep sleep.</p>
+    <p>$who</p>
 
     <div class="bedtime-table">
       <div class="bedtime-row recommended">
@@ -101,6 +135,9 @@ foreach ($wt in $wakeTimes) {
     <p>Your brain doesn&rsquo;t sleep evenly. It cycles through stages of light sleep, deep sleep, and REM sleep. One full cycle averages <strong>90 minutes</strong>. Waking up at the end of a cycle, during light sleep, feels effortless. Waking up mid-cycle &mdash; especially during deep sleep &mdash; leaves you groggy for an hour or more, a feeling sleep researchers call <strong>sleep inertia</strong>.</p>
     <p>That&rsquo;s why a 7-hour night sometimes feels worse than 6 hours: 7 hours can land you in the middle of a cycle, while 6 or 7.5 hours wake you up cleanly between cycles. If you need to be up at $label, the bedtimes above let your last cycle end right around your alarm.</p>
 
+    <h2>$extraHead</h2>
+    $extraBody
+
     <h2>How to pick the right bedtime</h2>
     <p>For most adults, the sweet spot is <strong>5 cycles (7.5 hours)</strong>. If you&rsquo;re recovering from sleep debt, sick, doing intense physical training, or under 25, aim for <strong>6 cycles (9 hours)</strong>. Try to avoid 4 cycles or fewer unless you genuinely have no other option.</p>
 
@@ -117,6 +154,15 @@ foreach ($wt in $wakeTimes) {
     <p>Use the <a href="/">full sleep calculator</a> to compute bedtimes for any wake-up time, or jump to another common time:</p>
     <ul>
 $siblingsHtml
+    </ul>
+
+    <h2>Go deeper</h2>
+    <p>Want to understand the science behind these times? Read our in-depth guides:</p>
+    <ul>
+      <li><a href="/guide/complete-sleep-cycles/">Sleep cycles explained: the four stages of sleep</a></li>
+      <li><a href="/guide/fall-asleep-faster/">How to fall asleep faster: 12 methods</a></li>
+      <li><a href="/guide/sleep-by-age/">How much sleep you need by age</a></li>
+      <li><a href="/guide/sleep-debt/">Sleep debt and how to recover</a></li>
     </ul>
 
     <h2>About sleep cycles</h2>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CycleBed Pinterest Pins</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #14172b;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    padding: 40px 20px;
+    color: #fff;
+  }
+  .instructions {
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    padding: 24px 28px;
+    background: #1a2140;
+    border-radius: 14px;
+    border: 1px solid #2a3358;
+    line-height: 1.6;
+  }
+  .instructions h1 { font-size: 22px; margin-bottom: 12px; }
+  .instructions p { color: #b8c3df; margin-bottom: 8px; font-size: 15px; }
+  .instructions code {
+    background: #0b1020;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #7c9eff;
+    font-family: ui-monospace, monospace;
+    font-size: 13px;
+  }
+  .pin-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+
+  /* === PIN === */
+  .pin {
+    width: 1000px;
+    height: 1500px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, #14183a 0%, #0b1020 60%, #1a0e2c 100%);
+    border-radius: 32px;
+    padding: 90px 70px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* Decorative dots/stars */
+  .pin::before {
+    content: '';
+    position: absolute;
+    top: 12%; right: 14%;
+    width: 6px; height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.5;
+    box-shadow:
+      -60px 30px 0 -1px rgba(255,255,255,0.4),
+      40px 80px 0 -2px rgba(255,255,255,0.3),
+      -120px 110px 0 -2px rgba(255,255,255,0.35),
+      90px 160px 0 -1px rgba(255,255,255,0.45);
+  }
+  .pin::after {
+    content: '';
+    position: absolute;
+    bottom: 15%; left: 12%;
+    width: 4px; height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.3;
+    box-shadow:
+      80px -60px 0 0 rgba(255,255,255,0.3),
+      150px 40px 0 -1px rgba(255,255,255,0.4),
+      -40px -100px 0 -1px rgba(255,255,255,0.4);
+  }
+
+  .pin-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 70px;
+    z-index: 2;
+  }
+  .pin-header svg { flex-shrink: 0; }
+  .pin-brand {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+
+  .pin-eyebrow {
+    font-size: 18px;
+    font-weight: 600;
+    color: #7c9eff;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 24px;
+    z-index: 2;
+  }
+
+  .pin-title {
+    font-size: 78px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 40px;
+    z-index: 2;
+  }
+  .pin-title .accent {
+    background: linear-gradient(135deg, #7c9eff, #b8a0ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .pin-sub {
+    font-size: 26px;
+    font-weight: 500;
+    color: #b8c3df;
+    line-height: 1.4;
+    margin-bottom: 60px;
+    z-index: 2;
+  }
+
+  .pin-times {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: auto;
+    z-index: 2;
+  }
+  .pin-time-row {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1.5px solid rgba(124, 158, 255, 0.25);
+    border-radius: 20px;
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(8px);
+  }
+  .pin-time-row.recommended {
+    background: linear-gradient(135deg, rgba(94, 227, 161, 0.15), rgba(124, 158, 255, 0.1));
+    border-color: #5ee3a1;
+  }
+  .pin-time {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .pin-time-meta {
+    font-size: 22px;
+    font-weight: 600;
+    color: #b8c3df;
+    text-align: right;
+    line-height: 1.3;
+  }
+  .pin-time-meta .badge {
+    display: inline-block;
+    margin-top: 6px;
+    background: #5ee3a1;
+    color: #0b1020;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .pin-footer {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+  }
+  .pin-tagline {
+    font-size: 22px;
+    font-weight: 600;
+    color: #b8c3df;
+  }
+  .pin-url {
+    font-size: 24px;
+    font-weight: 800;
+    color: #7c9eff;
+    letter-spacing: -0.01em;
+  }
+
+  /* Variant: tip-style pin (no times) */
+  .pin.tip .pin-title { font-size: 96px; margin-bottom: 60px; }
+  .pin.tip .pin-big-number {
+    font-size: 280px;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+    background: linear-gradient(135deg, #7c9eff, #b8a0ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin: 60px 0;
+  }
+  .pin.tip .pin-big-text {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+    color: #b8c3df;
+    line-height: 1.4;
+  }
+
+  .pin-label {
+    text-align: center;
+    color: #7c9eff;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-family: ui-monospace, monospace;
+  }
+</style>
+</head>
+<body>
+
+<div class="instructions">
+  <h1>How to use these pins</h1>
+  <p><strong>1.</strong> Right-click on any pin below &rarr; <code>Inspect</code></p>
+  <p><strong>2.</strong> In DevTools, find the <code>&lt;div class="pin"&gt;</code> element (the one you right-clicked).</p>
+  <p><strong>3.</strong> Right-click on that element in the inspector &rarr; <code>Capture node screenshot</code></p>
+  <p><strong>4.</strong> A PNG (1000&times;1500) downloads automatically &mdash; upload it to Pinterest as a pin.</p>
+  <p style="margin-top:12px; color:#7c9eff;"><strong>Works in:</strong> Chrome, Edge, Brave, Opera, Arc. In Firefox: use the &ldquo;Screenshot Node&rdquo; option in the inspector instead.</p>
+</div>
+
+<div class="pin-grid">
+
+  <!-- PIN 1: Wake at 7 AM -->
+  <div class="pin-label">PIN 1 &mdash; link to: /sleep/wake-at-7am/</div>
+  <div class="pin">
+    <div class="pin-header">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="#7c9eff"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <div class="pin-brand">CycleBed</div>
+    </div>
+    <div class="pin-eyebrow">Sleep Cycle Method</div>
+    <div class="pin-title">What time to <span class="accent">go to bed</span> to wake up at 7&nbsp;AM</div>
+    <div class="pin-sub">Based on 90-minute sleep cycles &mdash; so you wake up between cycles, not in the middle of deep sleep.</div>
+    <div class="pin-times">
+      <div class="pin-time-row recommended">
+        <div class="pin-time">9:45 PM</div>
+        <div class="pin-time-meta">9 hours sleep<br><span class="badge">Ideal</span></div>
+      </div>
+      <div class="pin-time-row recommended">
+        <div class="pin-time">11:15 PM</div>
+        <div class="pin-time-meta">7.5 hours<br><span class="badge">Recommended</span></div>
+      </div>
+      <div class="pin-time-row">
+        <div class="pin-time">12:45 AM</div>
+        <div class="pin-time-meta">6 hours sleep</div>
+      </div>
+    </div>
+    <div class="pin-footer">
+      <div class="pin-tagline">Free calculator</div>
+      <div class="pin-url">cyclebed.com</div>
+    </div>
+  </div>
+
+  <!-- PIN 2: Wake at 6 AM -->
+  <div class="pin-label">PIN 2 &mdash; link to: /sleep/wake-at-6am/</div>
+  <div class="pin">
+    <div class="pin-header">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="#7c9eff"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <div class="pin-brand">CycleBed</div>
+    </div>
+    <div class="pin-eyebrow">For early risers</div>
+    <div class="pin-title">Waking up at <span class="accent">6&nbsp;AM</span>? Here&rsquo;s when to sleep.</div>
+    <div class="pin-sub">Pick a bedtime that ends a full sleep cycle right at your alarm. No more grogginess.</div>
+    <div class="pin-times">
+      <div class="pin-time-row recommended">
+        <div class="pin-time">8:45 PM</div>
+        <div class="pin-time-meta">9 hours sleep<br><span class="badge">Ideal</span></div>
+      </div>
+      <div class="pin-time-row recommended">
+        <div class="pin-time">10:15 PM</div>
+        <div class="pin-time-meta">7.5 hours<br><span class="badge">Recommended</span></div>
+      </div>
+      <div class="pin-time-row">
+        <div class="pin-time">11:45 PM</div>
+        <div class="pin-time-meta">6 hours sleep</div>
+      </div>
+    </div>
+    <div class="pin-footer">
+      <div class="pin-tagline">Free calculator</div>
+      <div class="pin-url">cyclebed.com</div>
+    </div>
+  </div>
+
+  <!-- PIN 3: Why 7.5h beats 8h -->
+  <div class="pin-label">PIN 3 &mdash; link to: cyclebed.com (homepage)</div>
+  <div class="pin tip">
+    <div class="pin-header">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="#7c9eff"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <div class="pin-brand">CycleBed</div>
+    </div>
+    <div class="pin-eyebrow">Sleep science</div>
+    <div class="pin-title">Why <span class="accent">7.5 hours</span> feels better than 8.</div>
+    <div class="pin-big-number">90</div>
+    <div class="pin-big-text">
+      Sleep cycles last about <strong style="color:#fff">90 minutes</strong>.<br>
+      8 hours catches you mid-cycle.<br>
+      7.5 hours = exactly 5 cycles.<br>
+      <br>
+      <strong style="color:#fff">Try it for one week.</strong>
+    </div>
+    <div class="pin-footer">
+      <div class="pin-tagline">Free calculator</div>
+      <div class="pin-url">cyclebed.com</div>
+    </div>
+  </div>
+
+  <!-- PIN 4: Wake at 5 AM -->
+  <div class="pin-label">PIN 4 &mdash; link to: /sleep/wake-at-5am/</div>
+  <div class="pin">
+    <div class="pin-header">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="#7c9eff"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <div class="pin-brand">CycleBed</div>
+    </div>
+    <div class="pin-eyebrow">5 AM Club</div>
+    <div class="pin-title">Wake up at <span class="accent">5&nbsp;AM</span> without feeling dead.</div>
+    <div class="pin-sub">The 5 AM Club fails because most people pick a random bedtime. Pick one that ends a sleep cycle.</div>
+    <div class="pin-times">
+      <div class="pin-time-row recommended">
+        <div class="pin-time">7:45 PM</div>
+        <div class="pin-time-meta">9 hours sleep<br><span class="badge">Ideal</span></div>
+      </div>
+      <div class="pin-time-row recommended">
+        <div class="pin-time">9:15 PM</div>
+        <div class="pin-time-meta">7.5 hours<br><span class="badge">Recommended</span></div>
+      </div>
+      <div class="pin-time-row">
+        <div class="pin-time">10:45 PM</div>
+        <div class="pin-time-meta">6 hours sleep</div>
+      </div>
+    </div>
+    <div class="pin-footer">
+      <div class="pin-tagline">Free calculator</div>
+      <div class="pin-url">cyclebed.com</div>
+    </div>
+  </div>
+
+  <!-- PIN 5: Why you wake up tired -->
+  <div class="pin-label">PIN 5 &mdash; link to: cyclebed.com (homepage)</div>
+  <div class="pin tip">
+    <div class="pin-header">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="#7c9eff"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <div class="pin-brand">CycleBed</div>
+    </div>
+    <div class="pin-eyebrow">The real reason</div>
+    <div class="pin-title">Why you wake up <span class="accent">tired</span> after 8 hours.</div>
+    <div class="pin-big-text" style="margin: 80px 0 60px;">
+      It&rsquo;s not the hours.<br>
+      It&rsquo;s <strong style="color:#fff">WHEN</strong> your alarm goes off<br>
+      relative to your sleep cycle.<br>
+      <br>
+      <span style="color:#ff7a90; font-weight: 700;">Mid-cycle wake-up</span> &rarr; groggy<br>
+      <span style="color:#5ee3a1; font-weight: 700;">Between cycles</span> &rarr; refreshed
+    </div>
+    <div class="pin-footer">
+      <div class="pin-tagline">Free calculator</div>
+      <div class="pin-url">cyclebed.com</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
