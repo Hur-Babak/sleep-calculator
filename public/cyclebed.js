@@ -67,17 +67,15 @@
   }
 
   // --- Scroll reveal: stagger + observe targets, reveal on intersect ---
+  // Handles both static content and elements injected later (e.g. the
+  // bedtime cards and schedule rows that tools generate on calculate),
+  // so dynamic results are never left stuck in the pre-hidden state.
+  var REVEAL_SEL = '.time-card, .tool-links li, .bedtime-row, .quiz-question, .tool, .article h2';
+
   function setupReveals() {
     if (!canReveal) return;
-    var targets = document.querySelectorAll(
-      '.time-card, .tool-links li, .bedtime-row, .quiz-question, .tool, .article h2'
-    );
-    if (!targets.length) return;
 
-    function revealAll() {
-      for (var j = 0; j < targets.length; j++) targets[j].classList.add('in-view');
-    }
-
+    var counter = 0;
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
@@ -87,14 +85,38 @@
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
 
-    for (var i = 0; i < targets.length; i++) {
-      targets[i].style.setProperty('--reveal-i', i % 8);
-      io.observe(targets[i]);
+    function observe(el) {
+      if (el.__cbReveal) return;
+      el.__cbReveal = true;
+      el.style.setProperty('--reveal-i', counter % 8);
+      counter++;
+      io.observe(el);
+      // Per-element failsafe: guarantee the element becomes visible even
+      // if the observer never fires (off-screen, tall, or edge cases).
+      setTimeout(function () { el.classList.add('in-view'); }, 1800);
     }
 
-    // Failsafe: if anything is still hidden after a moment (e.g. observer
-    // never fires for off-screen-but-tall content), force it visible.
-    setTimeout(revealAll, 1800);
+    function scan(root) {
+      if (!root || root.nodeType !== 1) return;
+      if (root.matches && root.matches(REVEAL_SEL)) observe(root);
+      if (root.querySelectorAll) {
+        var found = root.querySelectorAll(REVEAL_SEL);
+        for (var k = 0; k < found.length; k++) observe(found[k]);
+      }
+    }
+
+    scan(document.body);
+
+    // Catch reveal targets injected after load (tool results, etc.)
+    if ('MutationObserver' in window) {
+      var mo = new MutationObserver(function (mutations) {
+        for (var m = 0; m < mutations.length; m++) {
+          var added = mutations[m].addedNodes;
+          for (var n = 0; n < added.length; n++) scan(added[n]);
+        }
+      });
+      mo.observe(document.body, { childList: true, subtree: true });
+    }
   }
 
   function init() {
