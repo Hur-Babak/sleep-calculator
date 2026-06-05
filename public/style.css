@@ -441,6 +441,18 @@ h1 {
   line-height: 1.55;
 }
 
+.breadcrumbs {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+.breadcrumbs a {
+  color: var(--text-dim);
+  text-decoration: none;
+}
+.breadcrumbs a:hover { color: var(--accent); }
+.breadcrumbs span { color: var(--text); }
+
 .contact-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
