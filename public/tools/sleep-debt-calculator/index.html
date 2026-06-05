@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="p:domain_verify" content="1c54f62131bd5728453cb7db845ee337"/>
+<title>Sleep Debt Calculator &mdash; How Much Sleep Have You Lost? | CycleBed</title>
+<meta name="description" content="Free sleep debt calculator. Enter how much you slept each night this week to see your accumulated sleep deficit and how much you need to catch up.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://cyclebed.com/tools/sleep-debt-calculator/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9728714289190766" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="logo">
+      <svg class="logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="#7c9eff" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <span>CycleBed</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <article class="container article">
+    <h1>Sleep debt calculator</h1>
+    <p class="lead">Sleep debt is the running total of sleep you owe your body. Enter how many hours you slept each of the last seven nights and how much you need, and this tool shows your accumulated deficit &mdash; plus a realistic plan to pay it back.</p>
+
+    <div class="tool">
+      <div class="field">
+        <label for="need">How much sleep do you need per night? (hours)</label>
+        <input type="number" id="need" min="4" max="12" step="0.5" value="8">
+      </div>
+
+      <label style="display:block;font-size:14px;color:var(--text-dim);margin-bottom:8px;font-weight:500;">Hours slept each of the last 7 nights</label>
+      <div class="day-grid" id="day-grid"></div>
+
+      <button class="calc-btn" id="calc">Calculate my sleep debt</button>
+
+      <div class="tool-result hidden" id="result">
+        <div class="result-big" id="debt-big">&mdash;</div>
+        <p class="result-note" id="debt-note"></p>
+      </div>
+    </div>
+
+    <h2>How sleep debt is calculated</h2>
+    <p>For each night, we subtract how long you slept from how much you need. Nights where you slept less add to your debt; nights where you slept more help pay it down. Add up all seven nights and you get your <strong>weekly sleep debt</strong> &mdash; the total number of hours you&rsquo;re currently running behind.</p>
+    <p>A small debt of an hour or two is normal and easily recovered. Once you&rsquo;re carrying five-plus hours, the effects start to show: slower reaction time, worse focus, low mood, stronger cravings, and a weaker immune system. The tricky part is that your <em>sense</em> of tiredness levels off even as your performance keeps dropping &mdash; so you can feel &ldquo;fine&rdquo; while functioning well below your best.</p>
+
+    <h2>How to pay back what you owe</h2>
+    <ul>
+      <li><strong>Add sleep gradually.</strong> Extend your nights by 30&ndash;60 minutes rather than attempting one giant catch-up sleep. Go to bed earlier instead of waking later.</li>
+      <li><strong>Keep your wake time fixed.</strong> A stable wake time &mdash; weekends included &mdash; protects your body clock. Repay debt from the bedtime side.</li>
+      <li><strong>Avoid the weekend lie-in trap.</strong> Sleeping in by several hours causes &ldquo;social jetlag&rdquo; that wrecks Sunday night and Monday morning.</li>
+      <li><strong>Make recovery sleep count.</strong> Time it in full 90-minute cycles so you wake refreshed, not groggy.</li>
+    </ul>
+    <p>When you&rsquo;re ready to plan a recovery night, the <a href="/">sleep cycle calculator</a> turns your wake-up time into bedtimes built from complete cycles, and our <a href="/guide/sleep-debt/">full sleep debt guide</a> goes deeper on recovery.</p>
+
+    <h2>More sleep tools</h2>
+    <ul class="tool-links">
+      <li><a href="/tools/nap-calculator/"><strong>Nap calculator</strong> &mdash; when to wake from a nap</a></li>
+      <li><a href="/tools/chronotype-quiz/"><strong>Chronotype quiz</strong> &mdash; are you a lark or a night owl?</a></li>
+      <li><a href="/tools/caffeine-calculator/"><strong>Caffeine calculator</strong> &mdash; when to stop drinking coffee</a></li>
+    </ul>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <nav class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <p class="footer-note">CycleBed is an informational tool, not medical advice.</p>
+    <p class="copyright">&copy; <span id="year">2026</span> CycleBed</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+(function () {
+  var labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  var grid = document.getElementById('day-grid');
+  labels.forEach(function (d, i) {
+    var wrap = document.createElement('div');
+    wrap.className = 'day';
+    wrap.innerHTML = '<label for="d' + i + '">' + d + '</label>' +
+      '<input type="number" id="d' + i + '" min="0" max="14" step="0.5" value="7">';
+    grid.appendChild(wrap);
+  });
+
+  document.getElementById('calc').addEventListener('click', function () {
+    var need = parseFloat(document.getElementById('need').value) || 8;
+    var debt = 0;
+    for (var i = 0; i < 7; i++) {
+      var slept = parseFloat(document.getElementById('d' + i).value);
+      if (isNaN(slept)) slept = need;
+      debt += (need - slept);
+    }
+
+    var big = document.getElementById('debt-big');
+    var note = document.getElementById('debt-note');
+    var res = document.getElementById('result');
+    res.classList.remove('hidden');
+
+    var rounded = Math.round(debt * 10) / 10;
+
+    if (rounded <= 0) {
+      big.className = 'result-big good';
+      big.textContent = 'No sleep debt';
+      note.innerHTML = 'You actually banked about <strong>' + Math.abs(rounded) + ' hours</strong> of extra sleep this week. Keep your schedule consistent so you stay ahead.';
+    } else if (rounded < 3) {
+      big.className = 'result-big good';
+      big.textContent = rounded + ' hours behind';
+      note.innerHTML = 'A small, easily-recovered deficit. One or two slightly earlier bedtimes will clear it.';
+    } else if (rounded < 6) {
+      big.className = 'result-big warn';
+      big.textContent = rounded + ' hours behind';
+      note.innerHTML = 'A moderate sleep debt. Spread recovery over several nights by going to bed 30&ndash;60 minutes earlier. You may already feel the effects on focus and mood.';
+    } else {
+      big.className = 'result-big bad';
+      big.textContent = rounded + ' hours behind';
+      note.innerHTML = 'A significant sleep debt &mdash; equivalent to losing most of a full night. This level impairs reaction time and concentration. Prioritise recovery sleep over the next week and protect a consistent schedule.';
+    }
+  });
+})();
+</script>
+</body>
+</html>

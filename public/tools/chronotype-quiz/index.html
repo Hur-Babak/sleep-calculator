@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="p:domain_verify" content="1c54f62131bd5728453cb7db845ee337"/>
+<title>Chronotype Quiz &mdash; Are You a Morning Lark or Night Owl? | CycleBed</title>
+<meta name="description" content="Take the free chronotype quiz to find out if you're a morning lark, night owl, or somewhere in between, plus your ideal bedtime and wake-up time.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://cyclebed.com/tools/chronotype-quiz/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9728714289190766" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="logo">
+      <svg class="logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="#7c9eff" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <span>CycleBed</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <article class="container article">
+    <h1>Chronotype quiz: lark or night owl?</h1>
+    <p class="lead">Your chronotype is your body&rsquo;s natural preference for when to sleep and be active &mdash; it&rsquo;s largely genetic, not just a habit. Answer these seven quick questions to find out where you sit on the lark-to-owl spectrum and what bedtime actually suits you.</p>
+
+    <div class="tool">
+      <form id="quiz"></form>
+      <button class="calc-btn" id="calc">See my chronotype</button>
+
+      <div class="tool-result hidden" id="result">
+        <div class="result-big" id="type-big">&mdash;</div>
+        <p class="result-note" id="type-note"></p>
+      </div>
+    </div>
+
+    <h2>What your chronotype means</h2>
+    <p>Roughly speaking, people fall into three groups. <strong>Morning larks</strong> wake early naturally, peak before noon, and fade in the evening. <strong>Night owls</strong> struggle in the morning, come alive later in the day, and naturally want a late bedtime. Most people are <strong>intermediate</strong> &mdash; somewhere in the middle with mild leanings either way.</p>
+    <p>Your chronotype isn&rsquo;t a flaw to fix; it&rsquo;s biology. Night owls forced onto an early schedule build up &ldquo;social jetlag&rdquo; and chronic sleep debt, while larks pushed to stay up late suffer the same in reverse. The goal is to work <em>with</em> your type where you can: align your most demanding tasks with your peak hours, get bright light at the right time to anchor your rhythm, and aim for a consistent schedule that respects your natural window.</p>
+
+    <h2>Use your result</h2>
+    <p>Whatever your type, the key is waking at the end of a sleep cycle rather than the middle of one. Plug your ideal wake-up time into the <a href="/">sleep cycle calculator</a> to get bedtimes built from full 90-minute cycles. You can also read how sleep needs shift with age in our <a href="/guide/sleep-by-age/">sleep-by-age guide</a>.</p>
+
+    <h2>More sleep tools</h2>
+    <ul class="tool-links">
+      <li><a href="/tools/sleep-debt-calculator/"><strong>Sleep debt calculator</strong> &mdash; how much sleep have you lost?</a></li>
+      <li><a href="/tools/nap-calculator/"><strong>Nap calculator</strong> &mdash; when to wake from a nap</a></li>
+      <li><a href="/tools/caffeine-calculator/"><strong>Caffeine calculator</strong> &mdash; when to stop drinking coffee</a></li>
+    </ul>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <nav class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <p class="footer-note">CycleBed is an informational tool, not medical advice.</p>
+    <p class="copyright">&copy; <span id="year">2026</span> CycleBed</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+(function () {
+  // Each option carries a score: higher = more "morning". Range per question 0..3.
+  var questions = [
+    {
+      q: '1. If you were free to plan your day, what time would you get up?',
+      opts: [
+        { t: 'Before 6:30 AM', s: 3 },
+        { t: '6:30&ndash;7:45 AM', s: 2 },
+        { t: '7:45&ndash;9:30 AM', s: 1 },
+        { t: 'After 9:30 AM', s: 0 }
+      ]
+    },
+    {
+      q: '2. How do you feel in the first half hour after waking?',
+      opts: [
+        { t: 'Alert and ready to go', s: 3 },
+        { t: 'Fairly clear-headed', s: 2 },
+        { t: 'Groggy for a while', s: 1 },
+        { t: 'Barely functional', s: 0 }
+      ]
+    },
+    {
+      q: '3. When do you feel at your mental peak?',
+      opts: [
+        { t: 'Early morning', s: 3 },
+        { t: 'Late morning / midday', s: 2 },
+        { t: 'Afternoon', s: 1 },
+        { t: 'Evening or night', s: 0 }
+      ]
+    },
+    {
+      q: '4. If you had to do hard physical exercise, when would you prefer?',
+      opts: [
+        { t: '7&ndash;9 AM', s: 3 },
+        { t: '11 AM&ndash;1 PM', s: 2 },
+        { t: '3&ndash;5 PM', s: 1 },
+        { t: '7&ndash;10 PM', s: 0 }
+      ]
+    },
+    {
+      q: '5. What time do you naturally start to feel sleepy at night?',
+      opts: [
+        { t: 'Before 9:30 PM', s: 3 },
+        { t: '9:30&ndash;11 PM', s: 2 },
+        { t: '11 PM&ndash;12:30 AM', s: 1 },
+        { t: 'After 12:30 AM', s: 0 }
+      ]
+    },
+    {
+      q: '6. Without an alarm on a free day, you would wake&hellip;',
+      opts: [
+        { t: 'Early, same as a workday', s: 3 },
+        { t: 'A little later than usual', s: 2 },
+        { t: 'Noticeably later', s: 1 },
+        { t: 'Hours later &mdash; well into the morning', s: 0 }
+      ]
+    },
+    {
+      q: '7. How would you describe yourself?',
+      opts: [
+        { t: 'Definitely a morning person', s: 3 },
+        { t: 'More morning than evening', s: 2 },
+        { t: 'More evening than morning', s: 1 },
+        { t: 'Definitely a night person', s: 0 }
+      ]
+    }
+  ];
+
+  var form = document.getElementById('quiz');
+  var answers = {};
+
+  questions.forEach(function (question, qi) {
+    var block = document.createElement('div');
+    block.className = 'quiz-question';
+    var qEl = document.createElement('div');
+    qEl.className = 'q';
+    qEl.innerHTML = question.q;
+    block.appendChild(qEl);
+
+    var optsWrap = document.createElement('div');
+    optsWrap.className = 'quiz-options';
+
+    question.opts.forEach(function (opt, oi) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'quiz-opt';
+      btn.innerHTML = opt.t;
+      btn.addEventListener('click', function () {
+        answers[qi] = opt.s;
+        var siblings = optsWrap.querySelectorAll('.quiz-opt');
+        siblings.forEach(function (s) { s.classList.remove('selected'); });
+        btn.classList.add('selected');
+      });
+      optsWrap.appendChild(btn);
+    });
+
+    block.appendChild(optsWrap);
+    form.appendChild(block);
+  });
+
+  document.getElementById('calc').addEventListener('click', function () {
+    if (Object.keys(answers).length < questions.length) {
+      alert('Please answer all 7 questions first.');
+      return;
+    }
+    var score = 0;
+    for (var k in answers) score += answers[k];
+    // Max score = 21. Bands:
+    var big = document.getElementById('type-big');
+    var note = document.getElementById('type-note');
+    document.getElementById('result').classList.remove('hidden');
+
+    if (score >= 16) {
+      big.className = 'result-big good';
+      big.textContent = 'Morning Lark';
+      note.innerHTML = 'You&rsquo;re a true early bird. Your body wants to rise early and peak before noon. Ideal target: <strong>bed around 10&ndash;10:30 PM, wake around 6&ndash;6:30 AM</strong>. Schedule your hardest work in the morning and protect your early bedtime &mdash; late nights hit you hard.';
+    } else if (score >= 11) {
+      big.className = 'result-big good';
+      big.textContent = 'Morning-leaning';
+      note.innerHTML = 'You lean toward mornings but aren&rsquo;t an extreme lark. Ideal target: <strong>bed around 10:30&ndash;11 PM, wake around 6:30&ndash;7 AM</strong>. You can flex a little, but you do your best thinking earlier in the day.';
+    } else if (score >= 6) {
+      big.className = 'result-big warn';
+      big.textContent = 'Evening-leaning';
+      note.innerHTML = 'You lean toward the evening. Mornings are a bit of a struggle and you sharpen up as the day goes on. Ideal target: <strong>bed around 11:30 PM&ndash;12:30 AM, wake around 7:30&ndash;8:30 AM</strong> when your schedule allows. Get bright light right after waking to ease earlier starts.';
+    } else {
+      big.className = 'result-big bad';
+      big.textContent = 'Night Owl';
+      note.innerHTML = 'You&rsquo;re a genuine night owl &mdash; your body clock runs late by nature, not by choice. Ideal target: <strong>bed around 12:30&ndash;1:30 AM, wake around 8:30&ndash;9:30 AM</strong>. Forcing very early starts builds sleep debt; where you can, align your schedule later and keep it consistent.';
+    }
+  });
+})();
+</script>
+</body>
+</html>

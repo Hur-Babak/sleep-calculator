@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="p:domain_verify" content="1c54f62131bd5728453cb7db845ee337"/>
+<title>Nap Calculator &mdash; When to Set Your Alarm for the Perfect Nap | CycleBed</title>
+<meta name="description" content="Free nap calculator. Tells you exactly when to set your alarm for a 20, 30, 60, or 90-minute nap so you wake up refreshed instead of groggy.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://cyclebed.com/tools/nap-calculator/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9728714289190766" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="logo">
+      <svg class="logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="#7c9eff" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <span>CycleBed</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <article class="container article">
+    <h1>Nap calculator</h1>
+    <p class="lead">A nap can leave you sharp or groggy depending entirely on its length. Tell the calculator when you&rsquo;re lying down and it shows when to set your alarm for each kind of nap &mdash; so you wake during light sleep, not deep sleep.</p>
+
+    <div class="tool">
+      <div class="field">
+        <label for="start">I&rsquo;m lying down at</label>
+        <input type="time" id="start">
+      </div>
+      <button class="calc-btn" id="calc">Show my nap wake-up times</button>
+
+      <div class="tool-result hidden" id="result">
+        <div class="bedtime-table" id="nap-table"></div>
+        <p class="fall-asleep-note">Assumes about 5 minutes to drift off for a nap.</p>
+      </div>
+    </div>
+
+    <h2>Which nap length should I choose?</h2>
+    <ul>
+      <li><strong>20 minutes &mdash; the power nap.</strong> Stays in light sleep, so you wake quickly with a clear alertness boost and no grogginess. The safest choice for most people, any time of day.</li>
+      <li><strong>30 minutes &mdash; the danger zone.</strong> Just long enough to start slipping into deep sleep but not long enough to finish a cycle, so you often wake up groggy. Either shorten to 20 or extend to 90.</li>
+      <li><strong>60 minutes &mdash; the memory nap.</strong> Reaches deep sleep, which is great for learning and recall &mdash; but expect some grogginess on waking. Good before an exam if you have time to shake it off.</li>
+      <li><strong>90 minutes &mdash; the full-cycle nap.</strong> One complete cycle through light, deep, and REM sleep, returning to light sleep just as you wake. The most restorative option when you have the time.</li>
+    </ul>
+
+    <h2>Tips for a better nap</h2>
+    <p>Nap in the <strong>early-to-mid afternoon</strong> (roughly 1&ndash;3 PM) to ride your natural post-lunch dip without stealing pressure from your nighttime sleep. Avoid napping after about 4 PM. For an instant boost, try the <strong>coffee nap</strong>: drink a coffee, then lie down for 20 minutes &mdash; the caffeine kicks in just as you wake.</p>
+    <p>Want the science? Read our <a href="/guide/power-nap-guide/">complete power nap guide</a>, or use the <a href="/">full sleep calculator</a> for nighttime sleep.</p>
+
+    <h2>More sleep tools</h2>
+    <ul class="tool-links">
+      <li><a href="/tools/sleep-debt-calculator/"><strong>Sleep debt calculator</strong> &mdash; how much sleep have you lost?</a></li>
+      <li><a href="/tools/chronotype-quiz/"><strong>Chronotype quiz</strong> &mdash; are you a lark or a night owl?</a></li>
+      <li><a href="/tools/caffeine-calculator/"><strong>Caffeine calculator</strong> &mdash; when to stop drinking coffee</a></li>
+    </ul>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <nav class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <p class="footer-note">CycleBed is an informational tool, not medical advice.</p>
+    <p class="copyright">&copy; <span id="year">2026</span> CycleBed</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+(function () {
+  var startInput = document.getElementById('start');
+  // default to current time
+  var now = new Date();
+  startInput.value = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+
+  var FALL = 5; // minutes to drift off for a nap
+  var naps = [
+    { min: 20, name: 'Power nap', desc: 'light sleep only &middot; wake refreshed', cls: 'recommended', q: 'good', qt: 'Best' },
+    { min: 30, name: 'Short nap', desc: 'may dip into deep sleep &middot; can feel groggy', cls: '', q: 'ok', qt: 'Risky' },
+    { min: 60, name: 'Memory nap', desc: 'includes deep sleep &middot; good for learning', cls: '', q: 'ok', qt: 'Heavy' },
+    { min: 90, name: 'Full-cycle nap', desc: 'one complete cycle &middot; wake refreshed', cls: 'recommended', q: 'good', qt: 'Ideal' }
+  ];
+
+  function fmt(totalMin) {
+    totalMin = ((totalMin % 1440) + 1440) % 1440;
+    var h = Math.floor(totalMin / 60);
+    var m = totalMin % 60;
+    var period = h >= 12 ? 'PM' : 'AM';
+    var h12 = h % 12; if (h12 === 0) h12 = 12;
+    return h12 + ':' + String(m).padStart(2, '0') + ' ' + period;
+  }
+
+  document.getElementById('calc').addEventListener('click', function () {
+    var v = startInput.value;
+    if (!v) return;
+    var parts = v.split(':');
+    var startMin = parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+
+    var table = document.getElementById('nap-table');
+    table.innerHTML = '';
+    naps.forEach(function (n) {
+      var wake = fmt(startMin + FALL + n.min);
+      var row = document.createElement('div');
+      row.className = 'bedtime-row ' + n.cls;
+      row.innerHTML =
+        '<div class="bedtime-time">' + wake + '</div>' +
+        '<div class="bedtime-meta"><strong>' + n.name + '</strong> (' + n.min + ' min) &middot; ' + n.desc +
+        ' <span class="quality ' + n.q + '">' + n.qt + '</span></div>';
+      table.appendChild(row);
+    });
+
+    document.getElementById('result').classList.remove('hidden');
+  });
+})();
+</script>
+</body>
+</html>
