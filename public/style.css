@@ -634,6 +634,16 @@ h1 {
   .day-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 480px) {
+  .field-row { grid-template-columns: 1fr; gap: 0; }
+}
+
 .tool-result {
   margin-top: 22px;
   padding-top: 22px;

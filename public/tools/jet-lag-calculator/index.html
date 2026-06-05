@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="p:domain_verify" content="1c54f62131bd5728453cb7db845ee337"/>
+<title>Jet Lag Calculator &mdash; How Long to Adjust &amp; a Light Plan | CycleBed</title>
+<meta name="description" content="Free jet lag calculator. Enter your travel direction and time zones crossed to see how many days to adjust, plus a light-exposure plan to recover faster.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://cyclebed.com/tools/jet-lag-calculator/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9728714289190766" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="/style.css">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="CycleBed">
+<meta property="og:image" content="https://cyclebed.com/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cyclebed.com/og-default.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cyclebed.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://cyclebed.com/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "Jet lag calculator", "item": "https://cyclebed.com/tools/jet-lag-calculator/" }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="logo">
+      <svg class="logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="#7c9eff" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <span>CycleBed</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <article class="container article">
+    <nav class="breadcrumbs"><a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; <span>Jet lag calculator</span></nav>
+    <h1>Jet lag calculator</h1>
+    <p class="lead">Crossing time zones shifts your body clock out of sync with the local day. Tell the calculator which way you&rsquo;re flying and how many time zones you&rsquo;ll cross, and it estimates how long you&rsquo;ll need to adjust &mdash; plus a light plan to speed it up.</p>
+
+    <div class="tool">
+      <div class="field-row">
+        <div class="field">
+          <label for="dir">Direction of travel</label>
+          <select id="dir">
+            <option value="east">Eastward (e.g. US &rarr; Europe, Europe &rarr; Asia)</option>
+            <option value="west">Westward (e.g. Europe &rarr; US, Asia &rarr; Europe)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="zones">Time zones crossed</label>
+          <input type="number" id="zones" min="1" max="14" value="6">
+        </div>
+      </div>
+      <button class="calc-btn" id="calc">Estimate my jet lag</button>
+
+      <div class="tool-result hidden" id="result">
+        <div class="result-big" id="days">&mdash;</div>
+        <p id="summary"></p>
+        <div id="plan"></div>
+      </div>
+    </div>
+
+    <h2>Why direction matters</h2>
+    <p>Your internal clock naturally runs a little longer than 24 hours, so it&rsquo;s easier to <em>delay</em> it than to <em>advance</em> it. That&rsquo;s why <strong>flying west &mdash; which lengthens your day &mdash; is usually easier</strong> than flying east, which forces you to fall asleep and wake up earlier than your body wants. As a rough rule, expect about <strong>one day of recovery per time zone</strong> when flying east, and a bit faster going west.</p>
+
+    <h2>The light rule</h2>
+    <p>Light is the most powerful tool for resetting your clock, and the <em>timing</em> is everything:</p>
+    <ul>
+      <li><strong>Flying east (need to wake earlier):</strong> seek bright light in the <strong>morning</strong> at your destination and avoid bright light in the evening. Morning light pulls your clock earlier.</li>
+      <li><strong>Flying west (need to stay up later):</strong> seek bright light in the <strong>evening</strong> and avoid early-morning light. Evening light pushes your clock later.</li>
+    </ul>
+    <p>Crossing more than about 8 time zones can confuse this rule for the first day, because your body may read midday light as &ldquo;wrong-side&rdquo; light. When in doubt, follow the local schedule for meals, daylight, and bedtime as quickly as possible &mdash; that&rsquo;s the fastest reset of all.</p>
+
+    <h2>Beat it faster</h2>
+    <ul>
+      <li><strong>Shift before you fly.</strong> A few days out, move your bedtime 30&ndash;60 minutes per day toward your destination&rsquo;s schedule (earlier for east, later for west).</li>
+      <li><strong>Get on local time the moment you land.</strong> Eat and sleep on the destination&rsquo;s clock, even if it feels wrong.</li>
+      <li><strong>Use strategic naps.</strong> If you must nap, keep it to 20 minutes so you don&rsquo;t sink into deep sleep &mdash; see the <a href="/tools/nap-calculator/">nap calculator</a>.</li>
+      <li><strong>Stay hydrated, go easy on alcohol and caffeine</strong> around the flight; both worsen the disruption.</li>
+    </ul>
+
+    <h2>More sleep tools</h2>
+    <ul class="tool-links">
+      <li><a href="/"><strong>Sleep cycle calculator</strong> &mdash; the best bedtime for your wake-up time</a></li>
+      <li><a href="/tools/nap-calculator/"><strong>Nap calculator</strong> &mdash; strategic naps without grogginess</a></li>
+      <li><a href="/tools/wind-down-routine/"><strong>Wind-down routine timer</strong> &mdash; ease into sleep on a new schedule</a></li>
+    </ul>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <nav class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/guide/">Guides</a>
+      <a href="/tools/">Tools</a>
+      <a href="/about/">About</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <p class="footer-note">CycleBed is an informational tool, not medical advice.</p>
+    <p class="copyright">&copy; <span id="year">2026</span> CycleBed</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+(function () {
+  function calc() {
+    var dir = document.getElementById('dir').value;
+    var zones = parseInt(document.getElementById('zones').value, 10);
+    if (!zones || zones < 1) return;
+    if (zones > 14) zones = 14;
+
+    // Eastward ~1 day/zone, westward ~0.7 day/zone (easier to delay the clock)
+    var rate = dir === 'east' ? 1 : 0.7;
+    var days = Math.max(1, Math.round(zones * rate));
+
+    var daysEl = document.getElementById('days');
+    daysEl.textContent = days + (days === 1 ? ' day' : ' days');
+    daysEl.className = 'result-big ' + (days <= 2 ? 'good' : (days <= 5 ? 'warn' : 'bad'));
+
+    var summary = document.getElementById('summary');
+    summary.innerHTML = 'Crossing <strong>' + zones + '</strong> time zone' + (zones === 1 ? '' : 's') +
+      ' heading <strong>' + dir + 'ward</strong>, expect roughly <strong>' + days + ' day' + (days === 1 ? '' : 's') +
+      '</strong> to feel fully adjusted. ' +
+      (dir === 'east'
+        ? 'Eastward trips are tougher because you have to advance your body clock and sleep earlier than it wants.'
+        : 'Westward trips are usually gentler because you only have to stay up later, which your clock prefers.');
+
+    var plan = document.getElementById('plan');
+    if (dir === 'east') {
+      plan.innerHTML =
+        '<p><strong>Your light plan:</strong> seek bright light in the <strong>morning</strong> at your destination and avoid bright light in the evening. ' +
+        'Before you fly, shift your bedtime <strong>earlier</strong> by 30&ndash;60 minutes a day.</p>';
+    } else {
+      plan.innerHTML =
+        '<p><strong>Your light plan:</strong> seek bright light in the <strong>evening</strong> at your destination and avoid early-morning light. ' +
+        'Before you fly, shift your bedtime <strong>later</strong> by 30&ndash;60 minutes a day.</p>';
+    }
+    if (zones >= 9) {
+      plan.innerHTML += '<p class="fall-asleep-note">With ' + zones + ' zones crossed, the light rule can flip for the first day &mdash; just lock onto the local schedule as fast as possible.</p>';
+    }
+
+    document.getElementById('result').classList.remove('hidden');
+  }
+  document.getElementById('calc').addEventListener('click', calc);
+})();
+</script>
+</body>
+</html>

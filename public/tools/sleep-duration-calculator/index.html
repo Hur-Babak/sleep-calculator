@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="p:domain_verify" content="1c54f62131bd5728453cb7db845ee337"/>
+<title>Sleep Duration Calculator &mdash; How Much Sleep Did I Get? | CycleBed</title>
+<meta name="description" content="Enter the time you went to bed and woke up to see how long you slept, how many full sleep cycles that is, and whether you hit your sleep target.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://cyclebed.com/tools/sleep-duration-calculator/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9728714289190766" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="/style.css">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="CycleBed">
+<meta property="og:image" content="https://cyclebed.com/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cyclebed.com/og-default.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cyclebed.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://cyclebed.com/tools/" },
+    { "@type": "ListItem", "position": 3, "name": "Sleep duration calculator", "item": "https://cyclebed.com/tools/sleep-duration-calculator/" }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="logo">
+      <svg class="logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="#7c9eff" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <span>CycleBed</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <article class="container article">
+    <nav class="breadcrumbs"><a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; <span>Sleep duration calculator</span></nav>
+    <h1>How much sleep did I get?</h1>
+    <p class="lead">Enter the time you fell asleep and the time you woke up. The calculator shows how long you actually slept, how many full 90-minute cycles that works out to, and how it compares to a healthy night.</p>
+
+    <div class="tool">
+      <div class="field-row">
+        <div class="field">
+          <label for="bed">I fell asleep at</label>
+          <input type="time" id="bed" value="23:00">
+        </div>
+        <div class="field">
+          <label for="wake">I woke up at</label>
+          <input type="time" id="wake" value="07:00">
+        </div>
+      </div>
+      <button class="calc-btn" id="calc">Calculate my sleep</button>
+
+      <div class="tool-result hidden" id="result">
+        <div class="result-big" id="duration">&mdash;</div>
+        <p id="cycles-line"></p>
+        <p id="verdict"></p>
+      </div>
+    </div>
+
+    <h2>What counts as enough?</h2>
+    <p>Most adults need <strong>7 to 9 hours</strong> a night, which is roughly <strong>5 to 6 full sleep cycles</strong>. Because each cycle averages 90 minutes, the cleanest targets are 7.5 hours (5 cycles) or 9 hours (6 cycles) &mdash; waking at the end of a cycle leaves you alert, while waking mid-cycle causes the groggy feeling known as <strong>sleep inertia</strong>.</p>
+    <p>This tool measures time <em>asleep</em>, not time in bed. If you lay down at 11 PM but didn&rsquo;t actually drift off until 11:25, enter the later time for an honest number. Most people spend 15&ndash;20 minutes falling asleep and a little time awake during the night, so time in bed is usually 20&ndash;40 minutes longer than time asleep.</p>
+
+    <h2>Plan a better night</h2>
+    <p>Want to wake up at the end of a cycle next time? Use the <a href="/">sleep cycle calculator</a> to find the ideal bedtime for your alarm, or check your accumulated <a href="/tools/sleep-debt-calculator/">sleep debt</a> across the week.</p>
+
+    <h2>More sleep tools</h2>
+    <ul class="tool-links">
+      <li><a href="/tools/sleep-debt-calculator/"><strong>Sleep debt calculator</strong> &mdash; how much sleep have you lost this week?</a></li>
+      <li><a href="/tools/nap-calculator/"><strong>Nap calculator</strong> &mdash; when to set your alarm for the perfect nap</a></li>
+      <li><a href="/tools/wind-down-routine/"><strong>Wind-down routine timer</strong> &mdash; a step-by-step countdown to bedtime</a></li>
+    </ul>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <nav class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/guide/">Guides</a>
+      <a href="/tools/">Tools</a>
+      <a href="/about/">About</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <p class="footer-note">CycleBed is an informational tool, not medical advice.</p>
+    <p class="copyright">&copy; <span id="year">2026</span> CycleBed</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+(function () {
+  function calc() {
+    var bv = document.getElementById('bed').value;
+    var wv = document.getElementById('wake').value;
+    if (!bv || !wv) return;
+    var bp = bv.split(':'), wp = wv.split(':');
+    var bedMin = parseInt(bp[0], 10) * 60 + parseInt(bp[1], 10);
+    var wakeMin = parseInt(wp[0], 10) * 60 + parseInt(wp[1], 10);
+    var total = wakeMin - bedMin;
+    if (total <= 0) total += 1440; // crossed midnight
+
+    var h = Math.floor(total / 60);
+    var m = total % 60;
+    var durEl = document.getElementById('duration');
+    durEl.textContent = h + ' h' + (m ? ' ' + m + ' min' : '');
+
+    var cycles = total / 90;
+    var cyclesRounded = Math.round(cycles * 10) / 10;
+    document.getElementById('cycles-line').innerHTML =
+      'That&rsquo;s about <strong>' + cyclesRounded + ' sleep cycles</strong> (one cycle &asymp; 90 minutes).';
+
+    var verdict = document.getElementById('verdict');
+    durEl.className = 'result-big';
+    if (total >= 420 && total <= 540) {
+      durEl.classList.add('good');
+      verdict.innerHTML = '&#10003; Right in the healthy range for adults (7&ndash;9 hours). Nicely done.';
+    } else if (total >= 360 && total < 420) {
+      durEl.classList.add('warn');
+      verdict.innerHTML = 'A little short. 6 hours can work occasionally, but make 7.5 your target most nights.';
+    } else if (total > 540) {
+      durEl.classList.add('warn');
+      verdict.innerHTML = 'Longer than average. The odd long night is fine &mdash; often it&rsquo;s your body repaying sleep debt &mdash; but consistently needing 9+ hours can be worth a mention to your doctor.';
+    } else {
+      durEl.classList.add('bad');
+      verdict.innerHTML = 'That&rsquo;s well under what adults need. One short night is survivable, but a pattern of it builds real sleep debt. Try the <a href="/">bedtime calculator</a> to plan a fuller night.';
+    }
+
+    document.getElementById('result').classList.remove('hidden');
+  }
+  document.getElementById('calc').addEventListener('click', calc);
+})();
+</script>
+</body>
+</html>
