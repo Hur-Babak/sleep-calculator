@@ -9,6 +9,10 @@
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://cyclebed.com/tools/chronotype-quiz/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0b1020">
+<script src="/cyclebed.js"></script>
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9728714289190766" crossorigin="anonymous"></script>
 
@@ -56,6 +60,13 @@
       <div class="tool-result hidden" id="result">
         <div class="result-big" id="type-big">&mdash;</div>
         <p class="result-note" id="type-note"></p>
+        <div class="share" id="share">
+          <span class="share-label">Share your result</span>
+          <a class="share-btn" id="share-x" target="_blank" rel="noopener">X</a>
+          <a class="share-btn" id="share-fb" target="_blank" rel="noopener">Facebook</a>
+          <a class="share-btn" id="share-wa" target="_blank" rel="noopener">WhatsApp</a>
+          <button class="share-btn" id="share-copy" type="button">Copy link</button>
+        </div>
       </div>
     </div>
 
@@ -223,6 +234,30 @@ document.getElementById('year').textContent = new Date().getFullYear();
       big.textContent = 'Night Owl';
       note.innerHTML = 'You&rsquo;re a genuine night owl &mdash; your body clock runs late by nature, not by choice. Ideal target: <strong>bed around 12:30&ndash;1:30 AM, wake around 8:30&ndash;9:30 AM</strong>. Forcing very early starts builds sleep debt; where you can, align your schedule later and keep it consistent.';
     }
+
+    // Wire up share buttons with the result
+    var pageUrl = 'https://cyclebed.com/tools/chronotype-quiz/';
+    var shareText = 'I am a ' + big.textContent + ' on the CycleBed chronotype quiz - what are you?';
+    var enc = encodeURIComponent;
+    document.getElementById('share-x').href =
+      'https://twitter.com/intent/tweet?text=' + enc(shareText) + '&url=' + enc(pageUrl);
+    document.getElementById('share-fb').href =
+      'https://www.facebook.com/sharer/sharer.php?u=' + enc(pageUrl);
+    document.getElementById('share-wa').href =
+      'https://wa.me/?text=' + enc(shareText + ' ' + pageUrl);
+    var copyBtn = document.getElementById('share-copy');
+    copyBtn.onclick = function () {
+      var done = function () {
+        var prev = copyBtn.textContent;
+        copyBtn.textContent = 'Copied!';
+        setTimeout(function () { copyBtn.textContent = prev; }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pageUrl).then(done, done);
+      } else {
+        done();
+      }
+    };
   });
 })();
 </script>

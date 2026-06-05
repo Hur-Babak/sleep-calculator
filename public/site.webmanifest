@@ -1,0 +1,15 @@
+{
+  "name": "CycleBed — Sleep Cycle Calculator",
+  "short_name": "CycleBed",
+  "description": "Find the best bedtime or wake-up time based on 90-minute sleep cycles, plus free nap, sleep debt, chronotype, caffeine, jet lag and wind-down tools.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#0b1020",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
